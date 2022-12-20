@@ -19,6 +19,7 @@ void swap_ref(int *p, int *x)
 int main(){
     int a,b;
     printf("Enter the numbers\n");
+    
     scanf("%d %d",&a,&b);
     swap_ref(&a,&b);
     swap_val(&a,&b);
