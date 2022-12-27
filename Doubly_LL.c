@@ -8,68 +8,59 @@ struct Node
 };
 void linkedlist_traversal(struct Node *ptr)
 {
-    while (ptr != NULL)
+    while(ptr!= NULL)
     {
         printf("Element : %d\n", ptr->data);
-        ptr = ptr->next;
+        ptr=ptr->next;
     }
 }
-// case 1 :deleting the first element in the linked list 
-struct Node * deletefirst(struct Node * head)
+struct Node * insertAtFirst(struct Node * head,int data) //this will return head fir the linked list
 {
-    struct Node * ptr = head;
-    head = head->next;
-    free(ptr);
-    return head;
+    struct Node * ptr = (struct Node *)malloc(sizeof(struct Node));
+    ptr->next = head;
+    ptr->data = data;
+    ptr->prev=head->prev;
+    head->prev=ptr;
+    return ptr;
 
 }
-// case 2 :deleting at the given index
-struct Node * deleteatindex(struct Node* head,int index)
+struct Node * insertAtindex(struct Node * head,int data,int index)
 {
+    struct Node * ptr = (struct Node *)malloc(sizeof(struct Node));
     struct Node * p = head;
-    struct Node * q = head->next;
-    for (int i = 0; i < index-1; i++)
-    {
-       p = p->next;
-       q = q->next;
-    }
-    p->next = q->next;
-    free(q);
+    int i=0;
     
-    return head;
-}
-// case 3: delete at the end
-struct Node *deleteatEnd(struct Node* head)
-{
-    struct Node * p = head;
-    struct Node * q = head->next;
-    while(q->next!=NULL)
+    while(i!=index-1)
     {
         p = p->next;
-        q = q->next;
+        i++;
     }
-    p->next = q->next;
-    free(q);
+    ptr->data = data;
+    ptr->next = p->next;
+    p->next = ptr;
     return head;
-
+     
 }
-//case 4 : Deleting the element with a given from the linked list
-struct Node *deletenodewithelement(struct Node* head, int value)
+struct Node * insertAtEnd(struct Node *head, int data)
 {
+    struct Node * ptr = (struct Node *) malloc(sizeof(struct Node));
+    ptr->data = data;
     struct Node * p = head;
-    struct Node * q = head->next;
-    while(q->data!=value && q->next!=NULL)
-    {
+ 
+    while(p->next!=NULL){
         p = p->next;
-        q = q->next;
     }
-    if(q->data == value)
-    {
-      p->next = q->next;
-        free(q);  
-    }
+    p->next = ptr;
+    ptr->next = NULL;
     return head;
-
+}
+struct Node * insertAfterpreviousindex(struct Node *head,struct Node *prev, int data)
+{
+    struct Node * ptr = (struct Node *) malloc(sizeof(struct Node));
+    ptr->data = data;
+    ptr->next = prev->next;
+    prev->next = ptr;
+    return head;
 }
 int main()
 {
@@ -102,15 +93,12 @@ int main()
     // Link thi and four linked list
     four->data = 1;
     four->next = NULL;
-    four->next = thi;
-    printf("Linked list before deletion\n");
+    four->prev = thi;
+    printf("Linked list before Insertion\n");
     linkedlist_traversal(head);
-    printf("Linked list after deletion\n");
-    // head = deletefirst(head);
-    // head = deleteatindex(head,2);
-    // head = deleteatEnd(head); 
-    head = deletenodewithelement(head,7); 
+    head=insertAtFirst(head,5);
+    printf("Linked list after Insertion\n");
     linkedlist_traversal(head);
 
     return 0;
-}
+} 
