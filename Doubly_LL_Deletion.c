@@ -14,59 +14,29 @@ void linkedlist_traversal(struct Node *ptr)
         ptr=ptr->next;
     }
 }
-struct Node * insertAtFirst(struct Node * head,int data) //this will return head fir the linked list
+struct Node * DeleteAtFirst(struct Node * head) //this will return head for the linked list
 {
-    struct Node * ptr = (struct Node *)malloc(sizeof(struct Node));
-    ptr->next = head;
-    ptr->data = data;
-    ptr->prev=head->prev;
-    head->prev=ptr;
-    return ptr;
+    struct Node * ptr = head;
+    head=head->next;
+    free(ptr);
+    return head;
 
 }
-struct Node * DeleteAtindex(struct Node * head)
+struct Node * Deleteatindex(struct Node* head,int index)
 {
-    struct Node * ptr = (struct Node *)malloc(sizeof(struct Node));
     struct Node * p = head;
-    int i=0;
-    if(index==0)
+    struct Node * q = head->next;
+    for (int i = 0; i < index-1; i++)
     {
-        head=insertAtFirst(head,data);
-        return head;
+       p = p->next;
+       q = q->next;
     }
+    p->next = q->next;
+    free(q);
     
-    while(i!=index-1)
-    {
-        p = p->next;
-        i++;
-    }
-    ptr->data = data;
-    ptr->next = p->next;
-    p->next = ptr;
-    return head;
-     
-}
-struct Node * insertAtEnd(struct Node *head, int data)
-{
-    struct Node * ptr = (struct Node *) malloc(sizeof(struct Node));
-    ptr->data = data;
-    struct Node * p = head;
- 
-    while(p->next!=NULL){
-        p = p->next;
-    }
-    p->next = ptr;
-    ptr->next = NULL;
     return head;
 }
-struct Node * insertAfterpreviousindex(struct Node *head,struct Node *prev, int data)
-{
-    struct Node * ptr = (struct Node *) malloc(sizeof(struct Node));
-    ptr->data = data;
-    ptr->next = prev->next;
-    prev->next = ptr;
-    return head;
-}
+
 int main()
 {
     // declaration of structure
@@ -101,11 +71,9 @@ int main()
     four->prev = thi;
     printf("Linked list before Insertion\n");
     linkedlist_traversal(head);
-    // head=insertAtFirst(head,5);
-    head=insertAtindex(head,5,0);
-    // head=insertAtEnd(head,5);
-    // head=insertAfterpreviousindex(head,thi,5);
-    printf("Linked list after Insertion\n");//jhgj
+    // head=DeleteAtFirst(head);
+    head=Deleteatindex(head,2);
+    printf("Linked list after Deletion\n");
     linkedlist_traversal(head);
 
     return 0;
