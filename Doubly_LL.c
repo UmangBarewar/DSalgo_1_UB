@@ -97,6 +97,9 @@ int main()
     printf("Linked list before Insertion\n");
     linkedlist_traversal(head);
     head=insertAtFirst(head,5);
+    // head=insertAtindex(head,5);
+    // head=insertAtEnd(head,5);
+    // head=insertAfterpreviousindex(head,thi,5);
     printf("Linked list after Insertion\n");
     linkedlist_traversal(head);
 
