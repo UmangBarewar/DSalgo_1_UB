@@ -24,11 +24,12 @@ struct Node * insertAtFirst(struct Node * head,int data) //this will return head
     return ptr;
 
 }
-struct Node * DeleteAtindex(struct Node * head)
+struct Node * DeleteAtindex(struct Node * head,int index)
 {
     struct Node * ptr = (struct Node *)malloc(sizeof(struct Node));
     struct Node * p = head;
     int i=0;
+    int data=data;
     if(index==0)
     {
         head=insertAtFirst(head,data);
@@ -102,7 +103,7 @@ int main()
     printf("Linked list before Insertion\n");
     linkedlist_traversal(head);
     // head=insertAtFirst(head,5);
-    head=insertAtindex(head,5,0);
+    // head=insertAtindex(head,5,0);
     // head=insertAtEnd(head,5);
     // head=insertAfterpreviousindex(head,thi,5);
     printf("Linked list after Insertion\n");//jhgj
